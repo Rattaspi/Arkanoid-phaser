@@ -2,13 +2,7 @@ var arkanoid = arkanoid || {};
 
 arkanoid.brickInfo = {
     width: 12,
-    height: 4,
-    /*
-    GetColor: function () {
-        var c = Phaser.Color.getRandomColor(255,255,255);
-        return c;
-    }
-    */
+    height: 4
 }
 
 arkanoid.avatarInfo = {
@@ -20,6 +14,10 @@ arkanoid.avatarInfo = {
 arkanoid.ballInfo = {
     width: 8,
     height: 8,
-    speed: 3,
-    direction: {x: 1, y: -1}
+    speed: 120,
+    direction: {x: 1, y: -1},
+    states: {
+        FOLLOW_AVATAR: 0,
+        NORMAL_BALL: 1
+    }
 }

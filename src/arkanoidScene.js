@@ -22,13 +22,12 @@ arkanoid.mainScene = {
 		arkanoid.game.physics.arcade.enable(this.avatar);
 		
 		this.avatar.body.immovable = true;
-		this.avatar.body.collideWithWorldBounds = true;
+		this.avatar.body.collideWorldBounds = true;
 		
 		this.avatarLeft.onDown.add(this.MoveLeft, this);
 		this.avatarLeft.onUp.add(this.StopMoving, this);
 		this.avatarRight.onDown.add(this.MoveRight, this);
 		this.avatarRight.onUp.add(this.StopMoving, this);
-		console.log(this.avatarLeft.onDown);
 		
         //BLOCKS
         //this.block = this.add.image(sceneConfig.width/2, sceneConfig.height *0.5, "white");
@@ -38,33 +37,34 @@ arkanoid.mainScene = {
         //this.block.tint = "0x6cff00";
         
         //BALL
-        //this.ball = this.add.image(sceneConfig.width * 0.5, sceneConfig.height * 0.4, "white");
-        //this.ball.scaleX = arkanoid.ballInfo.width;
-        //this.ball.scaleY = arkanoid.ballInfo.height;
-        //this.ball.tint = "#696969";
-        //this.game.physics.enable(this.ball, Phaser.Physics.ARCADE);
-        //this.ball.body.collideWithWorldBounds = true;
-        //arkanoid.ballInfo.direction.x =
-        //console.log(Phaser.Math.RealInRange(0,1));
+        this.ball = this.add.sprite(this.avatar.x, this.avatar.y - 15, "white");
+        this.ball.tint = "0x910096";
+        this.ball.anchor.setTo(0.5);
+        this.ball.scale.setTo(arkanoid.ballInfo.width, arkanoid.ballInfo.height);
+        this.game.physics.arcade.enable(this.ball);
+        
+        this.ball.body.collideWorldBounds = true;
+        
+        arkanoid.ballInfo.direction.x = this.game.rnd.real()%2 -1;
+        arkanoid.ballInfo.direction.y = -1;
+        this.ball.state = arkanoid.ballInfo.states.NORMAL_BALL;
+        this.ball.methods = arkanoid.ballMethods;
     },
     
 	update: function () {
-		
-		//this.avatar.x = this.game.input.mousePointer.x + (this.avatar.displayWidth/2);
-        //arkanoid.mainScene.UpdateBall(this);
-        
+        this.ball.methods.update(this.ball, this.avatar, this);
 	},
 	
 	MoveRight: function () {
-		this.avatar.body.velocity = arkanoid.avatarInfo.speed;
-	},
+		arkanoid.mainScene.avatar.body.velocity.x = arkanoid.avatarInfo.speed;
+    },
 	
 	MoveLeft: function () {
-		this.avatar.body.velocity = -arkanoid.avatarInfo.speed;
+		this.avatar.body.velocity.x = -arkanoid.avatarInfo.speed;
 	},
 	
 	StopMoving: function () {
-		this.avatar.body.velocity = 0;	
+		this.avatar.body.velocity.x = 0;	
 	},
     
     UpdateBall: function () {
