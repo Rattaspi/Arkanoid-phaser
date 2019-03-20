@@ -17,6 +17,11 @@ arkanoid.ballMethods = {
     },
     
     normalUpdate: function(ball, avatar, scene){
-        ball.body.velocity = Phaser.Point.multiply(new Phaser.Point(arkanoid.ballInfo.direction.x, arkanoid.ballInfo.direction.y), new Phaser.Point(arkanoid.ballInfo.speed, arkanoid.ballInfo.speed));
+        ball.body.velocity = Phaser.Point.multiply(new Phaser.Point(arkanoid.ballInfo.direction.x, arkanoid.ballInfo.direction.y),
+												   new Phaser.Point(arkanoid.ballInfo.speed, arkanoid.ballInfo.speed));
+		
+		scene.game.physics.arcade.collide(ball, scene.boundLeft);
+		scene.game.physics.arcade.collide(ball, scene.boundRight);
+		scene.game.physics.arcade.collide(ball, scene.boundUp);
     }
 }

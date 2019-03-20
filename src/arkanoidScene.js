@@ -15,6 +15,26 @@ arkanoid.mainScene = {
 		this.avatarLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		this.avatarRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 		
+		//WORLD BOUNDS
+		this.boundLeft = this.add.sprite(0, -10, "black");
+		this.boundLeft.scale.setTo(10, arkanoid.sceneConfig.height + 100);
+		this.boundLeft.anchor.setTo(1,0);
+		//this.game.physics.arcade.enable(this.boundLeft);
+		
+		this.boundRight = this.add.sprite(-10, arkanoid.sceneConfig.width, "black");
+		this.boundRight.scale.setTo(10, arkanoid.sceneConfig.height + 100);
+		//this.game.physics.arcade.enable(this.boundRight);
+		
+		this.boundUp = this.add.sprite(-10, 0, "black");
+		this.boundUp.scale.setTo(arkanoid.sceneConfig.width + 100, 10);
+		this.boundUp.anchor.setTo(0,1);
+		//this.game.physics.arcade.enable(this.boundUp);
+		this.game.physics.arcade.enable([
+			this.boundLeft,
+			this.boundRight,
+			this.boundUp
+		]);
+		
         //AVATAR
 		this.avatar = this.add.sprite(arkanoid.sceneConfig.width/2, arkanoid.sceneConfig.height * 0.95, "black");
 		this.avatar.scale.setTo(arkanoid.avatarInfo.width, arkanoid.avatarInfo.height);
@@ -43,8 +63,8 @@ arkanoid.mainScene = {
         this.ball.scale.setTo(arkanoid.ballInfo.width, arkanoid.ballInfo.height);
         this.game.physics.arcade.enable(this.ball);
         
-        this.ball.body.collideWorldBounds = true;
-        
+        this.ball.body.bounce.setTo(1.0, 1.0);
+		
         arkanoid.ballInfo.direction.x = this.game.rnd.real()%2 -1;
         arkanoid.ballInfo.direction.y = -1;
         this.ball.state = arkanoid.ballInfo.states.NORMAL_BALL;
@@ -65,23 +85,5 @@ arkanoid.mainScene = {
 	
 	StopMoving: function () {
 		this.avatar.body.velocity.x = 0;	
-	},
-    
-    UpdateBall: function () {
-		/*
-        //update X
-        scene.ball.x += arkanoid.ballInfo.direction.x * arkanoid.ballInfo.speed;
-        //update Y
-        scene.ball.y += arkanoid.ballInfo.direction.y * arkanoid.ballInfo.speed;
-        
-        //collision with borders
-        if(scene.ball.x <= scene.ball.displayWidth || scene.ball.x >= sceneConfig.width){
-            arkanoid.ballInfo.direction.x *= -1;
-        }
-        else if(scene.ball.y <= scene.ball.displayHeight || scene.ball.y >= sceneConfig.height){
-            arkanoid.ballInfo.direction.y *= -1;
-        }
-		*/
-    }
-    
+	}    
 };
