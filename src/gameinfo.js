@@ -14,7 +14,7 @@ arkanoid.brickInfo = {
 arkanoid.avatarInfo = {
     width: 40,
     height: 7,
-    
+    speed: 130
 }
 
 arkanoid.ballInfo = {
