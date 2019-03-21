@@ -21,7 +21,7 @@ arkanoid.mainScene = {
 		this.boundLeft.anchor.setTo(1,0);
 		//this.game.physics.arcade.enable(this.boundLeft);
 		
-		this.boundRight = this.add.sprite(-10, arkanoid.sceneConfig.width, "black");
+		this.boundRight = this.add.sprite(arkanoid.sceneConfig.width, -10, "black");
 		this.boundRight.scale.setTo(10, arkanoid.sceneConfig.height + 100);
 		//this.game.physics.arcade.enable(this.boundRight);
 		
@@ -34,6 +34,9 @@ arkanoid.mainScene = {
 			this.boundRight,
 			this.boundUp
 		]);
+        this.boundLeft.body.immovable = true;
+        this.boundRight.body.immovable = true;
+        this.boundUp.body.immovable = true;
 		
         //AVATAR
 		this.avatar = this.add.sprite(arkanoid.sceneConfig.width/2, arkanoid.sceneConfig.height * 0.95, "black");
