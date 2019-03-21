@@ -29,5 +29,10 @@ arkanoid.ballMethods = {
 		scene.game.physics.arcade.collide(ball, scene.boundUp, function(){
             arkanoid.ballInfo.direction.y = Math.abs(arkanoid.ballInfo.direction.y);
         });
+		
+		//COLLIDE WITH AVATAR
+		scene.game.physics.arcade.collide(ball, scene.avatar, function(){
+			arkanoid.ballInfo.direction.y = Math.abs(arkanoid.ballInfo.direction.y) * -1;
+		}, null, scene);
     }
 }
