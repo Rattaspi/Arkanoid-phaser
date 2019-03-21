@@ -11,6 +11,11 @@ arkanoid.ballMethods = {
                 this.normalUpdate(ball, avatar, scene);
         }
     },
+	
+	setPosition: function(x, y, ball){
+		ball.position.x = x;
+		ball.position.y = y;
+	},
     
     followAvatar: function(ball, avatar){
         ball.x = avatar.x;
