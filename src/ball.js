@@ -33,11 +33,44 @@ arkanoid.ballMethods = {
         }, null, scene);
 		scene.game.physics.arcade.collide(ball, scene.boundUp, function(){
             arkanoid.ballInfo.direction.y = Math.abs(arkanoid.ballInfo.direction.y);
-        });
+        }, null, scene);
+        scene.game.physics.arcade.collide(ball, scene.boundDown, function(){
+            this.ball.methods.processDie(this);
+        }, null, scene);
 		
 		//COLLIDE WITH AVATAR
 		scene.game.physics.arcade.collide(ball, scene.avatar, function(){
 			arkanoid.ballInfo.direction.y = Math.abs(arkanoid.ballInfo.direction.y) * -1;
 		}, null, scene);
+        
+        //COLLIDE WITH BRICKS
+        scene.game.physics.arcade.collide(ball, scene.bricks, function (ball, brick) {
+            this.processDirectionChangeOnCollision(scene);
+            brick.destroy();
+        }, null, this);
+    },
+    
+    processDirectionChangeOnCollision: function(scene) {
+        if(scene.ball.body.touching.up){
+            arkanoid.ballInfo.direction.y = Math.abs(arkanoid.ballInfo.direction.y);
+        }
+        else if (scene.ball.body.touching.down){
+            arkanoid.ballInfo.direction.y = Math.abs(arkanoid.ballInfo.direction.y) * -1;
+        }
+        else if(scene.ball.body.touching.left){
+            arkanoid.ballInfo.direction.x = Math.abs(arkanoid.ballInfo.direction.x);
+        }
+        else if(scene.ball.body.touching.right){
+            arkanoid.ballInfo.direction.x = Math.abs(arkanoid.ballInfo.direction.x) * -1;
+        }
+    },
+    
+    processDie: function(scene){
+        this.setPosition(scene.avatar.x, scene.avatar.y - 15, scene.ball);
+        scene.ball.body.velocity = new Phaser.Point(0,0);
+        scene.ball.state = arkanoid.ballInfo.states.FOLLOW_AVATAR;
+        
+        scene.avatar.hp--;
+        scene.hp.children[scene.avatar.hp].destroy();
     }
 }

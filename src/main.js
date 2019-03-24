@@ -10,5 +10,6 @@ arkanoid.sceneConfig = {
 arkanoid.game = new Phaser.Game(arkanoid.sceneConfig.width, arkanoid.sceneConfig.height, Phaser.AUTO, null, this, false, false, Phaser.Physics.ARCADE);
 
 arkanoid.game.state.add("first_level", arkanoid.mainScene);
+arkanoid.game.state.add("gameover", arkanoid.gameOverScene);
 
 arkanoid.game.state.start("first_level");

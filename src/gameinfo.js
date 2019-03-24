@@ -2,7 +2,7 @@ var arkanoid = arkanoid || {};
 
 arkanoid.brickInfo = {
     width: 12,
-    height: 4
+    height: 6
 }
 
 arkanoid.avatarInfo = {
